@@ -81,16 +81,16 @@
       <file leaf-file-name="view_all_comments.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin/includes/view_all_comments.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29321662">
-              <caret line="47" column="50" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.38663745">
+              <caret line="52" column="22" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
               <folding>
-                <marker date="1606918281552" expanded="true" signature="507:529" placeholder="SELECT * FRO..comments..." />
-                <marker date="1606918281552" expanded="true" signature="1230:1266" placeholder="SELECT * FRO..posts..." />
-                <marker date="1606918281552" expanded="true" signature="2134:2200" placeholder="UPDATE comme..." />
-                <marker date="1606918281552" expanded="true" signature="2134:2201" placeholder="UPDATE comme..." />
-                <marker date="1606918281552" expanded="true" signature="2484:2534" placeholder="UPDATE comme..." />
-                <marker date="1606918281552" expanded="true" signature="2484:2554" placeholder="UPDATE comme..." />
-                <marker date="1606918281552" expanded="true" signature="2821:2861" placeholder="DELETE FROM ..." />
+                <marker date="1606943671664" expanded="true" signature="507:529" placeholder="SELECT * FRO..comments..." />
+                <marker date="1606943671664" expanded="true" signature="1230:1266" placeholder="SELECT * FRO..posts..." />
+                <marker date="1606943671664" expanded="true" signature="2135:2201" placeholder="UPDATE comme..." />
+                <marker date="1606943671664" expanded="true" signature="2135:2202" placeholder="UPDATE comme..." />
+                <marker date="1606943671664" expanded="true" signature="2485:2535" placeholder="UPDATE comme..." />
+                <marker date="1606943671664" expanded="true" signature="2485:2555" placeholder="UPDATE comme..." />
+                <marker date="1606943671664" expanded="true" signature="2822:2862" placeholder="DELETE FROM ..." />
               </folding>
             </state>
           </provider>
@@ -284,7 +284,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="957" height="1100" extended-state="1" />
+    <frame x="-1" y="0" width="957" height="1100" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -838,16 +838,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/includes/view_all_comments.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29321662">
-          <caret line="47" column="50" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.38663745">
+          <caret line="52" column="22" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
           <folding>
-            <marker date="1606918281552" expanded="true" signature="507:529" placeholder="SELECT * FRO..comments..." />
-            <marker date="1606918281552" expanded="true" signature="1230:1266" placeholder="SELECT * FRO..posts..." />
-            <marker date="1606918281552" expanded="true" signature="2134:2200" placeholder="UPDATE comme..." />
-            <marker date="1606918281552" expanded="true" signature="2134:2201" placeholder="UPDATE comme..." />
-            <marker date="1606918281552" expanded="true" signature="2484:2534" placeholder="UPDATE comme..." />
-            <marker date="1606918281552" expanded="true" signature="2484:2554" placeholder="UPDATE comme..." />
-            <marker date="1606918281552" expanded="true" signature="2821:2861" placeholder="DELETE FROM ..." />
+            <marker date="1606943671664" expanded="true" signature="507:529" placeholder="SELECT * FRO..comments..." />
+            <marker date="1606943671664" expanded="true" signature="1230:1266" placeholder="SELECT * FRO..posts..." />
+            <marker date="1606943671664" expanded="true" signature="2135:2201" placeholder="UPDATE comme..." />
+            <marker date="1606943671664" expanded="true" signature="2135:2202" placeholder="UPDATE comme..." />
+            <marker date="1606943671664" expanded="true" signature="2485:2535" placeholder="UPDATE comme..." />
+            <marker date="1606943671664" expanded="true" signature="2485:2555" placeholder="UPDATE comme..." />
+            <marker date="1606943671664" expanded="true" signature="2822:2862" placeholder="DELETE FROM ..." />
           </folding>
         </state>
       </provider>
