@@ -15,8 +15,12 @@
 
             }//if isset category
 
-            $query = "SELECT * FROM posts WHERE post_category_id = $post_category_id";
+            $query = "SELECT * FROM posts WHERE post_category_id = $post_category_id AND post_status = 'published'";
             $select_all_posts_query = mysqli_query($conn_db_cms, $query);
+
+            if(mysqli_num_rows($select_all_posts_query) == 0){
+                echo "No results found!";
+            }/*if  $select_all_posts_query*/
 
             while($row = mysqli_fetch_assoc($select_all_posts_query)){
                 $post_id =  $row['post_id'];

@@ -61,10 +61,6 @@ if(isset($_POST['update_post'])){
         <input value = "<?php echo $post_title;?>" type = "text" class = "form-control" name = "post_title">
     </div>
     <div class = "form-group">
-        <label for = "post_author">Post Author</label>
-        <input value = "<?php echo $post_author;?>" type = "text" class = "form-control" name = "post_author">
-    </div>
-    <div class = "form-group">
         <select name = "post_category" id = "">
             <?php
             $query = "SELECT * FROM categories";
@@ -83,9 +79,24 @@ if(isset($_POST['update_post'])){
         </select>
     </div>
     <div class = "form-group">
-        <label for = "post_status">Post Status</label>
-        <input value = "<?php echo $post_status;?>" type = "text" class = "form-control" name = "post_status">
+        <label for = "post_author">Post Author</label>
+        <input value = "<?php echo $post_author;?>" type = "text" class = "form-control" name = "post_author">
     </div>
+    <div class = "form-group">
+        <label for = "post_status">Post Status</label>
+       <select name = "post_status" id = "">
+        <option value = "<?php echo $post_status; ?>"><?php echo $post_status; ?></option>
+           <?php
+            if($post_status == 'published'){
+                echo "<option value = 'draft'>Draft</option>";
+            }//if $post_status
+           else{
+               echo "<option value = 'published'>Publish</option>";
+           }//else post status
+           ?>
+    </select>
+    </div>
+    <label for = "post_image">Post Image</label>
     <div class = "form-group">
        <img width = "100" src = "../images/<?php echo $post_image; ?>">
         <input type = "file" class = "form-group" name = "post_image">
