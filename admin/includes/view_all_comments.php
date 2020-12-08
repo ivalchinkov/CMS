@@ -50,7 +50,7 @@
         echo "<td><a href = 'comments.php?delete=$comment_id'>Delete</a></td>";
         echo "</tr>";
 
-    }//end while loop 
+    }//end while loop
     ?>
     </tbody>
 </table>
