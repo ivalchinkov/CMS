@@ -32,13 +32,24 @@ if(isset($_POST['edit_user'])) {
             move_uploaded_file($post_image_temp, "../images/$post_image" );
     */
 
+    $query = "SELECT rand_salt FROM users";
+    $select_rand_salt_query = mysqli_query($conn_db_cms, $query);
+
+    if(!$select_rand_salt_query){
+        die("Query failed " . mysqli_error($conn_db_cms));
+    }//if !$select_rand_salt_query
+
+    $row = mysqli_fetch_array($select_rand_salt_query);
+    $salt = $row['rand_salt'];
+    $hashed_password = crypt($user_password, $salt);
+
     $query = "UPDATE users SET ";
     $query.= "user_first_name = '{$user_first_name}', ";
     $query.= "user_last_name = '{$user_last_name}', ";
     $query.= "user_role ='{$user_role}', ";
     $query.= "username = '{$username}', ";
     $query.= "user_email = '{$user_email}', ";
-    $query.= "user_password = '{$user_password}' ";
+    $query.= "user_password = '{$hashed_password}' ";
     $query.= "WHERE user_id = {$the_user_id} ";
 
     $edit_user_query = mysqli_query($conn_db_cms, $query);
@@ -59,7 +70,7 @@ if(isset($_POST['edit_user'])) {
         <input type = "text" value = "<?php echo $user_last_name?>" class = "form-control" name = "user_last_name">
     </div>
     <select name = "user_role" id = "">
-        <option value = "subscriber"><?php echo $user_role;?></option>
+        <option value = "<?php echo $user_role;?>"><?php echo $user_role;?></option>
 
         <?php
         if($user_role == 'admin'){

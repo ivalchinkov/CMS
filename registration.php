@@ -21,7 +21,8 @@ if(isset($_POST ['submit'])){
         }//if !$select_rand_salt_query
 
     $row = mysqli_fetch_array($select_rand_salt_query);
-    echo $salt = $row['rand_salt'];
+    $salt = $row['rand_salt'];
+    $password = crypt($password, $salt);
 
     $query = "INSERT INTO users (username, user_email, user_password, user_role)";
     $query .= "VALUES ('{$username}', '{$email}', '{$password}', 'subscriber' )";
@@ -32,10 +33,12 @@ if(isset($_POST ['submit'])){
         }//if !$register_user_query
         $message = "Registered successfully ";
     }//if empty
-
+        else{
+            $message = "Fields should not be empty";
+        }//else
 }//if isset $_POST submit
 else{
-    $message = "Fields should not be empty";
+    $message = "";
 }//else
  ?>
     <!-- Navigation -->
@@ -49,7 +52,7 @@ else{
                 <div class = "form-wrap">
                 <h1>Register</h1>
                     <form role = "form" action = "registration.php" method = "post" id = "login-form" autocomplete = "off">
-                        <h6 class = "text-center"><?php echo $message; ?></h6>
+                        <h5 class = "text-center"><?php echo $message; ?></h5>
                         <div class = "form-group">
                             <label for = "username" class = "sr-only">username</label>
                             <input type = "text" name = "username" id = "username" class = "form-control" placeholder = "Enter Desired Username">

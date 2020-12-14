@@ -1,0 +1,5 @@
+1)git status - pokazva koi failove sa promeneni
+2)git add . - dobavq promenite za commit
+3)git status - koi failove sa odobreni za commit
+4)git commit -m "comment" - save
+5)git push - izprashta promenite kum github origin

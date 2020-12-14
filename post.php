@@ -4,16 +4,19 @@
 <?php include "includes/db.php" ?>
     <!-- Page Content -->
     <div class="container">
-
     <div class="row">
-
         <!-- Blog Entries Column -->
         <div class="col-md-8">
             <?php
             if (isset($_GET['p_id'])) {
                 $the_post_id = $_GET['p_id'];
-            }//if isset p_id
 
+                $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = $the_post_id ";
+                $send_query = mysqli_query($conn_db_cms, $view_query);
+
+                if(!$view_query){
+                    die("Query failed. " . mysqli_error($conn_db_cms));
+                }//if !$view_query
             $query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
             $select_all_posts_query = mysqli_query($conn_db_cms, $query);
             while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
@@ -42,10 +45,12 @@
                 <hr>
                 <?php
             }//end while
+            }//if isset p_id
+            else{
+                header("Location: index.php");
+            }//else
             ?>
-
             <!-- Blog Comments -->
-
             <?php
             if (isset($_POST['create_comment'])) {
 
@@ -69,12 +74,10 @@
                     echo "<script>alert ('Fields should not be empty')</script>";
                 }//else
             }//if isset create comment
-
             ?>
             <!-- Comments Form -->
             <div class="well">
                 <h4>Leave a Comment:</h4>
-
                 <form class="needs-validation" novalidate action="" method="POST" role="form">
                     <div class="form-group">
                         <label for="author">Author:</label>
@@ -92,11 +95,8 @@
                     </div>
                     <button type="submit" name="create_comment" class="btn btn-primary">Create comment</button>
                 </form>
-
             </div>
-
             <hr>
-
             <!-- Posted Comments -->
             <?php
             $query = "SELECT * FROM comments WHERE comment_post_id = {$the_post_id} ";
@@ -126,10 +126,7 @@
                     </div>
                 </div>
             <?php }//while $row ?>
-
-
             <!-- Comment -->
-
         </div>
         <!-- Blog Sidebar Widgets Column -->
         <?php include "includes/sidebar.php" ?>
