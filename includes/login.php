@@ -22,11 +22,12 @@ if (isset($_POST['login'])) {
         $db_user_first_name = $row['user_first_name'];
         $db_user_last_name = $row['user_last_name'];
         $db_user_role = $row['user_role'];
+        $db_user_salt = $row['rand_salt'];
     }//while
 
-    $password = crypt($password, $db_user_password);
+    $encrypted_password = crypt($password, $db_user_salt);
 
-    if ($username === $db_username && $password === $db_user_password && $user_role === $db_user_role) {
+    if ($username === $db_username && $encrypted_password === $db_user_password && $user_role === $db_user_role) {
         $_SESSION['username'] = $db_username;
         $_SESSION['firstname'] = $db_user_first_name;
         $_SESSION['lastname'] = $db_user_last_name;
@@ -35,6 +36,6 @@ if (isset($_POST['login'])) {
     }//if $username
 
     else {
-        header("Location: ../index.php");
+       header("Location: ../index.php");
     }//else
 } //isset Login

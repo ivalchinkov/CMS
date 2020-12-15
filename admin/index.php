@@ -1,10 +1,10 @@
 <?php
-include "includes/header_admin.php";
+    include "includes/header_admin.php";
 ?>
     <div id="wrapper">
     <!-- Navigation -->
     <?php
-    include "includes/navigation_admin.php";
+         include "includes/navigation_admin.php";
     ?>
     <div id="page-wrapper">
         <div class="container-fluid">

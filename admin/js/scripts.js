@@ -47,3 +47,12 @@ $(document).ready(function () {
         $(this).remove();
     })
 });
+
+function load_users_online(){
+    $.get("functions.php?users_online=result", function(data){
+     $(".users_online").text(data);
+    });
+}//load_users_online
+setInterval(function(){
+    load_users_online();
+},1000);

@@ -1,14 +1,36 @@
-<?php include "includes/header.php" ?>
-    <!-- Navigation -->
-<?php include "includes/navigation.php" ?>
-<?php include "includes/db.php" ?>
+<?php
+include "includes/header.php";
+include "includes/db.php";
+// Navigation
+include "includes/navigation.php";?>
     <!-- Page Content -->
     <div class = "container">
     <div class = "row">
         <!-- Blog Entries Column -->
         <div class = "col-md-8">
             <?php
-            $query = "SELECT * FROM posts WHERE post_status = 'published'";
+            $per_page = 10;
+            if(isset($_GET['page'])){
+
+                $page = $_GET['page'];
+            }//if isset page
+            else{
+                $page = 1;
+            }//else
+
+            if($page == 1){
+                $page_1 = 0;
+            }//if $page
+            else{
+                $page_1 = ($page * $per_page) - $per_page;
+            }//else
+
+            $post_query_count = "SELECT * FROM posts";
+            $find_count = mysqli_query($conn_db_cms, $post_query_count);
+            $count = mysqli_num_rows($find_count);
+            $count = ceil($count / 10);
+
+            $query = "SELECT * FROM posts LiMIT $page_1, $per_page";
             $select_all_posts_query = mysqli_query($conn_db_cms, $query);
             if (mysqli_num_rows($select_all_posts_query) == 0) {
                 echo "No results found!";
@@ -51,4 +73,16 @@
     </div>
     <!-- /.row -->
     <hr>
+    <ul class = "pager">
+      <?php
+        for ($i = 1; $i <= $count; $i++){
+            if($i == $page){
+                echo "<li><a class = 'active_link' href = 'index.php?page={$i}'>{$i}</a></li>";
+            }//if $i
+            else{
+                echo "<li><a href = 'index.php?page={$i}'>{$i}</a></li>";
+            }//else
+        }//for
+      ?>
+    </ul>
 <?php include "includes/footer.php" ?>

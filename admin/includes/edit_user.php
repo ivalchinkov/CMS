@@ -32,7 +32,7 @@ if(isset($_POST['edit_user'])) {
             move_uploaded_file($post_image_temp, "../images/$post_image" );
     */
 
-    $query = "SELECT rand_salt FROM users";
+$query = "SELECT rand_salt FROM users WHERE username ='{$username}'";
     $select_rand_salt_query = mysqli_query($conn_db_cms, $query);
 
     if(!$select_rand_salt_query){
@@ -41,6 +41,7 @@ if(isset($_POST['edit_user'])) {
 
     $row = mysqli_fetch_array($select_rand_salt_query);
     $salt = $row['rand_salt'];
+
     $hashed_password = crypt($user_password, $salt);
 
     $query = "UPDATE users SET ";
