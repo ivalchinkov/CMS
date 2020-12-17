@@ -8,9 +8,7 @@ include "includes/header_admin.php";
     include "includes/navigation_admin.php";
     ?>
     <div id = "page-wrapper">
-
         <div class = "container-fluid">
-
             <!-- Page Heading -->
             <div class = "row">
                 <div class = "col-lg-12">
@@ -19,11 +17,9 @@ include "includes/header_admin.php";
                         <small>Author</small>
                     </h3>
                     <div class = "col-xs-6">
-
                         <?php
                             inserting_categories();
                         ?>
-
                         <form action = "" method = "POST">
                             <div class = "form-group">
                                 <label for = "cat-title"> Add category</label>
@@ -33,15 +29,12 @@ include "includes/header_admin.php";
                                 <input class = "btn btn-primary" type = "submit" name = "submit" value = "Add category">
                             </div>
                         </form>
-
                         <?php //Update and include query
                             if(isset($_GET['edit'])){
                                 $cat_id = $_GET['edit'];
                                 include "includes/update_categories.php";
                             }
                         ?>
-
-
                     </div><!-- col-xs-6 -->
                     <div class = "col-xs-6">
                         <table class = "table table-bordered table-hover">
@@ -54,7 +47,6 @@ include "includes/header_admin.php";
                             <tbody>
                            <?php //Find all categories query
                             find_all_categories();
-
                            //Delete query
                            delete_categories();
                             ?>
@@ -66,10 +58,7 @@ include "includes/header_admin.php";
                 </div><!-- col-lg-12 -->
             </div> <!-- /.row -->
         </div><!-- /.container-fluid -->
-
-
     </div> <!-- /#page-wrapper -->
-
 <?php
 include "includes/footer_admin.php"
 ?>

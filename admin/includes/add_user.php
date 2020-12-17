@@ -3,17 +3,13 @@ if (isset($_POST['create_user'])) {
     $user_first_name = $_POST['user_first_name'];
     $user_last_name = $_POST['user_last_name'];
     $user_role = $_POST['user_role'];
-    /*
-            $post_image = $_FILES['image']['name'];
-            $post_image_temp = $_FILES['image']['tmp_name'];
-    */
+
     $username = $_POST['username'];
     $user_email = $_POST['user_email'];
     $user_password = $_POST['user_password'];
-    /*
 
-            move_uploaded_file($post_image_temp, "../images/$post_image" );
-    */
+    $user_password = password_hash($user_password, PASSWORD_BCRYPT, ['cost' => 10]);
+
     $query = "INSERT INTO users(user_first_name, user_last_name, user_role, username, user_email, user_password) ";
     //bottom line syntax .= concatenates with upper one
     $query .= "VALUES ('{$user_first_name}', '{$user_last_name}', '{$user_role}', '{$username}','{$user_email}', '{$user_password}' )";

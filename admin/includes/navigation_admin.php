@@ -1,5 +1,6 @@
 <?php
    // include "header_admin.php";
+//require "functions_admin.php";
 ?>
         <nav class = "navbar navbar-inverse navbar-fixed-top" role = "navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -14,7 +15,7 @@
             </div>
             <!-- Top Menu Items -->
             <ul class = "nav navbar-right top-nav">
-               <!--<li><a href = ""><?php /*echo users_online();*/?></a></li>-->
+               <li><a href = ""><?php echo users_online();?></a></li>
                <li><a href = "">Users online: <span class = "users_online"></span></a></li>
 
                 <li><a href = "../index.php">Home Page</a></li>
@@ -24,13 +25,13 @@
                         <?php
                         if(isset($_SESSION['username'])){
                             echo $_SESSION['username'];
-                        }//iiset $_SESSION username
+                        }//isset $_SESSION username
                         ?>
 
                         <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                            <a href=profile.php><i class="fa fa-fw fa-user"></i> Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li>

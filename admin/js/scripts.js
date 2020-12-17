@@ -20,7 +20,7 @@ $(document).ready(function () {
                     this.checked = false;
 
                 });
-            };
+            }
             });
         }
     });
@@ -45,14 +45,35 @@ $(document).ready(function () {
     $("body").prepend(div_box);
     $('#load-screen').delay(400).fadeOut(500, function(){
         $(this).remove();
-    })
+    });
+
+
+
+    function validate_password(e){
+        e.preventDefault();
+        var a = $("#password").val();
+        var b = $("#confirm_password").val();
+        if (a !== b) {
+            alert("Passwords do no match");
+            return false;
+        }
+    }
+
+    // your form
+    var form = document.getElementById("login_form");
+
+    // attach event listener
+    form.addEventListener("submit", validate_password, true);
 });
 
 function load_users_online(){
-    $.get("functions.php?users_online=result", function(data){
+    $.get("functions_admin.php?users_online=result", function(data){
      $(".users_online").text(data);
     });
 }//load_users_online
+
+load_users_online();
+
 setInterval(function(){
     load_users_online();
-},1000);
+},60000);

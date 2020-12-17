@@ -1,28 +1,21 @@
 <?php
 include "includes/db.php";
 include "includes/header.php";
+include "includes/header.php";
 
 if(isset($_POST ['submit'])){
   $username = $_POST ['username'];
   $email = $_POST ['email'];
   $password = $_POST ['password'];
+  $confirm_password = $_POST ['confirm_password'];
 
     $username = mysqli_real_escape_string($conn_db_cms, $username);
     $email = mysqli_real_escape_string($conn_db_cms, $email);
     $password =  mysqli_real_escape_string($conn_db_cms, $password);
 
     if(empty(!$username) && empty(!$email) && empty(!$password) ){
+    $password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
 
-    $query = "SELECT rand_salt FROM users";
-    $select_rand_salt_query = mysqli_query($conn_db_cms, $query);
-
-        if(!$select_rand_salt_query){
-            die("Query failed " . mysqli_error($conn_db_cms));
-        }//if !$select_rand_salt_query
-
-    $row = mysqli_fetch_array($select_rand_salt_query);
-    $salt = $row['rand_salt'];
-    $password = crypt($password, $salt);
 
     $query = "INSERT INTO users (username, user_email, user_password, user_role)";
     $query .= "VALUES ('{$username}', '{$email}', '{$password}', 'subscriber' )";
@@ -51,7 +44,7 @@ else{
             <div class = "col-xs-6 col-xs-offset-3">
                 <div class = "form-wrap">
                 <h1>Register</h1>
-                    <form role = "form" action = "registration.php" method = "post" id = "login-form" autocomplete = "off">
+                    <form role = "form" action = "registration.php" method = "post" id = "login_form" >
                         <h5 class = "text-center"><?php echo $message; ?></h5>
                         <div class = "form-group">
                             <label for = "username" class = "sr-only">username</label>
@@ -63,9 +56,12 @@ else{
                         </div>
                          <div class = "form-group">
                             <label for = "password" class = "sr-only">Password</label>
-                            <input type = "password" name = "password" id = "key" class = "form-control" placeholder = "Password">
+                            <input type = "password" name = "password" id = "password" class = "form-control" placeholder = "Password">
                         </div>
-                
+                        <div class = "form-group">
+                            <label for = "confirm_password" class = "sr-only"> Confirm Password</label>
+                            <input type = "password" name = "confirm_password" id = "confirm_password" class = "form-control" placeholder = "Confirm Password">
+                        </div>
                         <input type = "submit" name = "submit" id = "btn-login" class = "btn btn-custom btn-lg btn-block" value = "Register">
                     </form>
                 </div>

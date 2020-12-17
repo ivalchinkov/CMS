@@ -4,9 +4,7 @@
     include "../includes/db.php";
     include "functions_admin.php";
 
-
     if(!isset($_SESSION['user_role'])){
-
             header("Location: ../index.php");
     }//if $user_role
 ?>

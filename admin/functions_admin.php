@@ -3,7 +3,8 @@ function users_online(){
     if(isset($_GET['users_online'])){
     global $conn_db_cms;
         if(!$conn_db_cms){
-           // include "../includes/db.php";
+            session_start();
+            require "../includes/db.php";
             $session = session_id();
             $time = time();
             $timeout_in_seconds = 60;
@@ -11,24 +12,21 @@ function users_online(){
             $query = "SELECT * FROM users_online WHERE session = '$session'";
             $send_query = mysqli_query($conn_db_cms, $query);
             $count = mysqli_num_rows($send_query);
-
                 if($count == NULL){
                     mysqli_query($conn_db_cms, "INSERT INTO users_online(session, time) VALUES('$session', '$time')");
                 }//if $count
                 else{
                     mysqli_query($conn_db_cms, "UPDATE users_online SET time = '$time' WHERE session = '$session'");
                 }//else
-                $users_online = mysqli_query($conn_db_cms, "SELECT * FROM users_online WHERE time > '$timeout'");
-                echo $count_user = mysqli_num_rows($users_online);
-
-            if($count_user == 1){
-                return "<h5>$count_user User online</h5>";
+                $users_online_query = mysqli_query($conn_db_cms, "SELECT * FROM users_online WHERE time > '$timeout'");
+                echo $count_users = mysqli_num_rows($users_online_query);
+            if($count_users == 1){
+                return "<h5>$count_users User online</h5>";
             }//if $count_user == 1
             else{
-                return "<h5>$count_user Users online</h5>";
+                return "<h5>$count_users Users online</h5>";
             }//else
         }//if !$conn_db_cms
-
     }//if isset users_online
 }//users_online
 users_online();
