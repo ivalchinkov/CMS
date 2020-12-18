@@ -12,11 +12,11 @@
                 $the_post_id = $_GET['p_id'];
                 $the_post_author = $_GET['author'];
             }//if isset p_id
-            $query = "SELECT * FROM posts WHERE post_author = '{$the_post_author}' ";
+            $query = "SELECT * FROM posts WHERE post_user = '{$the_post_author}' ";
             $select_all_posts_query = mysqli_query($conn_db_cms, $query);
             while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
                 $post_title = $row['post_title'];
-                $post_author = $row['post_author'];
+                $post_user = $row['post_user'];
                 $post_date = $row['post_date'];
                 $post_image = $row['post_image'];
                 $post_content = $row['post_content'];
@@ -30,7 +30,7 @@
                     <a href="#"><?php echo $post_title; ?></a>
                 </h2>
                 <p class="lead">
-                  All posts by: <?php echo $post_author; ?>
+                  All posts by: <?php echo $post_user; ?>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
                 <hr>

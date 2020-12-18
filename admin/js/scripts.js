@@ -48,19 +48,17 @@ $(document).ready(function () {
     });
 
 
+// your form
+    var form = document.getElementById("login_form");
 
     function validate_password(e){
-        e.preventDefault();
         var a = $("#password").val();
         var b = $("#confirm_password").val();
         if (a !== b) {
+            e.preventDefault();
             alert("Passwords do no match");
-            return false;
         }
     }
-
-    // your form
-    var form = document.getElementById("login_form");
 
     // attach event listener
     form.addEventListener("submit", validate_password, true);

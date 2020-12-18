@@ -4,9 +4,9 @@ if (isset($_GET['p_id'])) {
     $the_post_id = $_GET['p_id'];
 }//if isset GET p_id
 $select_posts_by_id = mysqli_query($conn_db_cms, $query);
-while ($row = mysqli_fetch_array($select_posts_by_id)) {
+while ($row = mysqli_fetch_assoc($select_posts_by_id)) {
     $post_id = $row['post_id'];
-    $post_author = $row['post_author'];
+    $post_user = $row['post_user'];
     $post_title = $row['post_title'];
     $post_category_id = $row['post_category_id'];
     $post_status = $row['post_status'];
@@ -17,7 +17,7 @@ while ($row = mysqli_fetch_array($select_posts_by_id)) {
     $post_date = $row['post_date'];
 }//end while
 if (isset($_POST['update_post'])) {
-    $post_author = $_POST['post_author'];
+    $post_user = $_POST['post_user'];
     $post_title = $_POST['post_title'];
     $post_category_id = $_POST['post_category'];
     $post_status = $_POST['post_status'];
@@ -41,7 +41,7 @@ if (isset($_POST['update_post'])) {
     $query .= "post_title = '{$post_title}', ";
     $query .= "post_category_id = '{$post_category_id}', ";
     $query .= "post_date = now(), ";
-    $query .= "post_author = '{$post_author}', ";
+    $query .= "post_user = '{$post_user}', ";
     $query .= "post_status = '{$post_status}', ";
     $query .= "post_tags = '{$post_tags}', ";
     $query .= "post_content = '{$post_content}', ";
@@ -53,7 +53,6 @@ if (isset($_POST['update_post'])) {
         die("Query failed. " . mysqli_error($conn_db_cms));
     }//if !$update post
     echo "<p class = bg-success>Post updated <a href = '../post.php?p_id={$the_post_id}'> View post</a> or <a href = 'posts.php'>Edit more posts</a></p>";
-
 }//if isset update post
 ?>
 <form action="" method="post" enctype="multipart/form-data">
@@ -62,6 +61,7 @@ if (isset($_POST['update_post'])) {
         <input value="<?php echo $post_title; ?>" type="text" class="form-control" name="post_title">
     </div>
     <div class="form-group">
+        <label for="post_category">Post Category</label>
         <select name="post_category" id="">
             <?php
             $query = "SELECT * FROM categories";
@@ -80,8 +80,24 @@ if (isset($_POST['update_post'])) {
         </select>
     </div>
     <div class="form-group">
-        <label for="post_author">Post Author</label>
-        <input value="<?php echo $post_author; ?>" type="text" class="form-control" name="post_author">
+        <label for="post_user">Post User</label>
+        <select name = "post_user" id = "">
+            <?php   echo "<option value = '{$username}'>Select user</option>";?>
+            <?php
+            $users_query = "SELECT * FROM users";
+            $select_user = mysqli_query($conn_db_cms, $users_query);
+
+            if(!$select_user){
+                die("Query failed. " . mysqli_error($conn_db_cms));
+            }//if !$select_users
+
+            while($row = mysqli_fetch_assoc($select_user)){
+                $user_id =  $row['user_id'];
+                $username = $row['username'];
+                echo "<option value = '{$username}'>{$username}</option>";
+            }//while
+            ?>
+        </select>
     </div>
     <div class="form-group">
         <label for="post_status">Post Status</label>

@@ -5,7 +5,7 @@
 
            switch($bulk_options){
             case 'published':
-                $query = "UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = {$post_value_id} ";
+                $query = escape("UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = {$post_value_id} ");
                 $update_to_published_status = mysqli_query($conn_db_cms, $query);
                 if(!$update_to_published_status){
                  die("Query failed " . mysqli_error($conn_db_cms));
@@ -13,7 +13,7 @@
             break;
 
                 case 'draft':
-                $query = "UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = {$post_value_id} ";
+                $query = escape("UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = {$post_value_id} ");
                 $update_to_draft_status = mysqli_query($conn_db_cms, $query);
                 if(!$update_to_draft_status){
                  die("Query failed " . mysqli_error($conn_db_cms));
@@ -33,16 +33,16 @@
              $select_post_query = mysqli_query($conn_db_cms, $query);
 
              while($row = mysqli_fetch_array($select_post_query)){
-                $post_title = $row['post_title'];
-                $post_category_id = $row['post_category_id'];
-                $post_date = $row['post_date'];
-                $post_author = $row['post_author'];
-                $post_status = $row['post_status'];
-                $post_image = $row['post_image'];
-                $post_tags = $row['post_tags'];
-                $post_content = $row['post_content'];
+                $post_title = escape($row['post_title']);
+                $post_category_id = escape($row['post_category_id']);
+                $post_date = escape($row['post_date']);
+                $post_author = escape($row['post_author']);
+                $post_status = escape($row['post_status']);
+                $post_image = escape($row['post_image']);
+                $post_tags = escape($row['post_tags']);
+                $post_content = escape($row['post_content']);
              }//while
-             $query = "INSERT INTO posts (post_category_id, post_title, post_author, post_date, post_status, post_image, post_tags, post_content)";
+             $query = escape("INSERT INTO posts (post_category_id, post_title, post_author, post_date, post_status, post_image, post_tags, post_content)");
              $query .= "VALUES ({$post_category_id}, '{$post_title}', '{$post_author}', now(), '{$post_status}', '{$post_image}', '{$post_tags}', '{$post_content}' )";
              $copy_query = mysqli_query($conn_db_cms, $query);
              if(!$copy_query){
@@ -53,7 +53,6 @@
         }//foreach
     }//if isset check_box_array
 ?>
-
 <form action = "" method = "POST" >
 <table class = "table table-bordered table-hover">
     <div id = "bulk_option_container" class = "col-xs-4">
@@ -73,7 +72,7 @@
     <tr>
         <th><input id = "select_all_boxes" type = "checkbox"> </th>
         <th>Post Id</th>
-        <th>Author</th>
+        <th>User</th>
         <th>Title</th>
         <th>Category</th>
         <th>Status</th>
@@ -96,6 +95,7 @@
     while ($row = mysqli_fetch_assoc($select_posts)) {
         $post_id = $row['post_id'];
         $post_author = $row['post_author'];
+        $post_user = $row['post_user'];
         $post_title = $row['post_title'];
         $post_category_id = $row['post_category_id'];
         $post_status = $row['post_status'];
@@ -109,7 +109,13 @@
         <td><input class = 'check_boxes' type = 'checkbox' name = 'check_box_array[]' value = '<?php echo $post_id;?>'></td>
         <?php
         echo "<td>$post_id</td>";
-        echo "<td>$post_author</td>";
+
+        if(!empty($post_author)){
+            echo "<td>$post_author</td>";
+        }//if isset $post_author
+        elseif(!empty($post_user)){
+            echo "<td>$post_user</td>";
+        }//else
         echo "<td>$post_title</td>";
 
         $query = "SELECT * FROM categories WHERE cat_id = {$post_category_id}";
@@ -144,14 +150,14 @@
 </table>
 <?php
 if (isset($_GET['delete'])) {
-    $the_post_id = $_GET['delete'];
+    $the_post_id = escape($_GET['delete']);
     $query = "DELETE FROM posts WHERE post_id = {$the_post_id} ";
     $delete_query = mysqli_query($conn_db_cms, $query);
     header("Location: posts.php");
 }//if isset delete
 
 if (isset($_GET['reset'])) {
-    $the_post_id = $_GET['reset'];
+    $the_post_id = escape($_GET['reset']);
     $query = "UPDATE posts SET post_views_count = 0 WHERE  post_id =" . mysqli_real_escape_string($conn_db_cms, $_GET['reset']) . " ";
     $reset_query = mysqli_query($conn_db_cms, $query);
     header("Location: posts.php");

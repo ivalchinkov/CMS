@@ -1,22 +1,22 @@
 <?php
     if(isset($_POST['create_post'])){
-        $post_category_id = $_POST['post_category_id'];
-        $post_title = $_POST['post_title'];
-        $post_author = $_POST['post_author'];
-        $post_date = date('d.m.Y h:i:s');
+        $post_category_id = escape($_POST['post_category_id']);
+        $post_title = escape($_POST['post_title']);
+        $post_user = escape($_POST['post_user']);
+        $post_date = escape(date('d.m.Y h:i:s'));
 
         $post_image = $_FILES['image']['name'];
         $post_image_temp = $_FILES['image']['tmp_name'];
 
-        $post_content = $_POST['post_content'];
-        $post_tags = $_POST['post_tags'];
-        $post_status = $_POST['post_status'];
+        $post_content = escape($_POST['post_content']);
+        $post_tags = escape($_POST['post_tags']);
+        $post_status = escape($_POST['post_status']);
 
         move_uploaded_file($post_image_temp, "../images/$post_image" );
 
-        $query = "INSERT INTO posts(post_category_id, post_title, post_author, post_date, post_image, post_content, post_tags, post_status) ";
+        $query = "INSERT INTO posts(post_category_id, post_title, post_user, post_date, post_image, post_content, post_tags, post_status) ";
         //bottom line syntax .= concatenates with upper one
-        $query .= "VALUES ({$post_category_id}, '{$post_title}', '{$post_author}', CURRENT_TIMESTAMP , '{$post_image}', '{$post_content}','{$post_tags}', '{$post_status}' )";
+        $query .= "VALUES ({$post_category_id}, '{$post_title}', '{$post_user}', CURRENT_TIMESTAMP , '{$post_image}', '{$post_content}','{$post_tags}', '{$post_status}' )";
 
         $create_post_query = mysqli_query($conn_db_cms, $query);
         if(!$create_post_query){
@@ -32,10 +32,34 @@
         <label for = "post_title">Post Title</label>
         <input type = "text" class = "form-control" name = "post_title">
     </div>
+
     <div class = "form-group">
+        <label for = "users">Users</label>
+        <!-- <input type = "text" class = "form-control" name = "post_status">-->
+        <select name = "post_user" id = "">
+            <?php
+            $users_query = "SELECT * FROM users";
+            $select_user = mysqli_query($conn_db_cms, $users_query);
+
+            if(!$select_user){
+                die("Query failed. " . mysqli_error($conn_db_cms));
+            }//if !$select_users
+
+            while($row = mysqli_fetch_assoc($select_user)){
+                $user_id =  $row['user_id'];
+                $username = $row['username'];
+                echo "<option value = '{$username}'>{$username}</option>";
+            }//while
+            ?>
+        </select>
+    </div>
+
+    <!--
+   <div class = "form-group">
         <label for = "post_author">Post Author</label>
         <input type = "text" class = "form-control" name = "post_author">
     </div>
+    -->
    <div class = "form-group">
         <label for = "post_category_id">Post Category</label>
        <!-- <input type = "text" class = "form-control" name = "post_status">-->

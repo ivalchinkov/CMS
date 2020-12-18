@@ -1,4 +1,11 @@
 <?php
+
+function escape($string){
+    global $conn_db_cms;
+   return mysqli_real_escape_string($conn_db_cms, trim($string));
+
+}//function escape
+
 function users_online(){
     if(isset($_GET['users_online'])){
     global $conn_db_cms;

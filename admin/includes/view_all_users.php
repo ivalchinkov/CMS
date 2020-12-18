@@ -63,7 +63,6 @@
             header("Location: users.php");
         }//if isset change_to_admin
 
-
         if(isset($_GET['change_to_sub'])){
             $the_user_id = $_GET['change_to_sub'];
             $query = "UPDATE users SET user_role = 'Subscriber' WHERE user_id = $the_user_id ";
@@ -71,11 +70,18 @@
             header("Location: users.php");
         }//if isset disapprove
 
-
+        //prevent a user to delete data if not an admin
     if(isset($_GET['delete'])){
-        $the_user_id = $_GET['delete'];
-        $query = "DELETE FROM users WHERE user_id = $the_user_id ";
-        $delete_user_query = mysqli_query($conn_db_cms, $query);
-        header("Location: users.php");
+       if(isset($_SESSION['user_role'])){
+           if($_SESSION['user_role'] == 'Admin'){
+
+                $the_user_id = mysqli_real_escape_string($conn_db_cms, $_GET['delete']);
+
+                $the_user_id = $_GET['delete'];
+                $query = "DELETE FROM users WHERE user_id = $the_user_id ";
+                $delete_user_query = mysqli_query($conn_db_cms, $query);
+                header("Location: users.php");
+           }
+        }//if isset user_role
     }//if isset delete
 ?>
