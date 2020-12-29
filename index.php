@@ -25,12 +25,12 @@ include "includes/navigation.php";?>
                 $page_1 = ($page * $per_page) - $per_page;
             }//else
 
-            $post_query_count = "SELECT * FROM posts";
+            $post_query_count = "SELECT * FROM posts WHERE post_status = 'published'";
             $find_count = mysqli_query($conn_db_cms, $post_query_count);
             $count = mysqli_num_rows($find_count);
             $count = ceil($count / 10);
 
-            $query = "SELECT * FROM posts LiMIT $page_1, $per_page";
+            $query = "SELECT * FROM posts WHERE post_status = 'published' LiMIT $page_1, $per_page";
             $select_all_posts_query = mysqli_query($conn_db_cms, $query);
             if (mysqli_num_rows($select_all_posts_query) == 0) {
                 echo "No results found!";

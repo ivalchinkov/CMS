@@ -1,28 +1,33 @@
 <?php
+include "delete_modal.php";
+
     if(isset($_POST['check_box_array'])){
         foreach($_POST['check_box_array'] as $post_value_id){
-           $bulk_options = $_POST['bulk_options'];
+           $bulk_options = escape($_POST['bulk_options']);
 
            switch($bulk_options){
             case 'published':
-                $query = escape("UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = {$post_value_id} ");
+                $query = "UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = {$post_value_id} ";
                 $update_to_published_status = mysqli_query($conn_db_cms, $query);
+
                 if(!$update_to_published_status){
                  die("Query failed " . mysqli_error($conn_db_cms));
                 }//if
             break;
 
-                case 'draft':
-                $query = escape("UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = {$post_value_id} ");
+            case 'draft':
+                $query = "UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = {$post_value_id}";
                 $update_to_draft_status = mysqli_query($conn_db_cms, $query);
+
                 if(!$update_to_draft_status){
                  die("Query failed " . mysqli_error($conn_db_cms));
                 }//if
             break;
 
-                case 'delete':
+            case 'delete':
                 $query = "DELETE FROM posts WHERE post_id = {$post_value_id} ";
                 $update_to_delete_status = mysqli_query($conn_db_cms, $query);
+
                 if(!$update_to_delete_status){
                  die("Query failed " . mysqli_error($conn_db_cms));
                 }//if
@@ -141,7 +146,8 @@
 
         echo "<td>$post_date</td>";
         echo "<td><a href = 'posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
-        echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete?');\" href = 'posts.php?delete={$post_id}'>Delete</a></td>";
+        echo "<td><a rel = '$post_id' href = 'javascript:void(0)' class = 'delete_link'>Delete</a></td>";
+       //echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete?');\" href = 'posts.php?delete={$post_id}'>Delete</a></td>";
         echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to reset counter?');\"href = 'posts.php?reset={$post_id}'>{$post_views_count}</a></td>";
         echo "</tr>";
     }//end while loop
@@ -164,3 +170,14 @@ if (isset($_GET['reset'])) {
 }//if isset reset
 
 ?>
+<script>
+    $(document).ready(function(){
+       $(".delete_link").on('click', function(){
+           var id = $(this).attr("rel");
+           var delete_url = "posts.php?delete="+ id +" ";
+           $(".delete_modal_link").attr("href", delete_url);
+           $("#my_modal").modal('show');
+
+       });
+    });
+</script>

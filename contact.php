@@ -4,17 +4,13 @@ include "includes/header.php";
 include "includes/header.php";
 
 if(isset($_POST['submit'])){
-    $to = "ivvonnty@abv.bg";
-    $subject = $_POST ['subject'];
-    $body = $_POST ['body'];
-
-    $msg = "First line of text\nSecond line of text";
-
-    // use wordwrap() if lines are longer than 70 characters
-    $msg = wordwrap($msg,70);
+    $to = "i.valchinkov@abv.bg";
+    $subject = wordwrap($_POST['subject'], 70);
+    $body = $_POST['body'];
+    $header = "From: " . $_POST['email'];
 
     // send email
-    mail($to, $subject, $body);
+    mail($to, $subject, $body, $header);
 }//if isset submit
  ?>
     <!-- Navigation -->

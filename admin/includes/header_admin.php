@@ -29,5 +29,6 @@
     <script src = "https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <script src = "../js/jquery.js"></script>
     <script src = "https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
+    <script src="js/jquery.js"></script>
 </head>
 <body>
